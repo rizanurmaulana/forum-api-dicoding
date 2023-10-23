@@ -14,9 +14,9 @@ describe('CommentRepository interface', () => {
       .rejects.toThrowError('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
     await expect(commentRepository.getCommentByThreadId(''))
       .rejects.toThrowError('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
-    await expect(commentRepository.verifyAvailableCommentInThread(''))
+    await expect(commentRepository.verifyAvailableComment(''))
       .rejects.toThrowError('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
-    await expect(commentRepository.findCommentByThreadId(''))
+    await expect(commentRepository.getCommentByThreadId(''))
       .rejects.toThrowError('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   });
 });

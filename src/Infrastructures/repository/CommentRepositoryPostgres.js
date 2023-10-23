@@ -24,7 +24,7 @@ class CommentRepositoryPostgres extends CommentRepository {
     return new AddedComment({ ...result.rows[0] });
   }
 
-  async verifyAvailableCommentInThread(id) {
+  async verifyAvailableComment(id) {
     const query = {
       text: 'SELECT * FROM comments WHERE id = $1',
       values: [id],
@@ -50,11 +50,15 @@ class CommentRepositoryPostgres extends CommentRepository {
     }
   }
 
-  async findCommentByThreadId(thread) {
+  async getCommentByThreadId(thread) {
     const query = {
-      text: `SELECT comments.id, users.username, comments.date, comments.content, comments.is_deleted FROM comments
-            INNER JOIN users
-            ON comments.owner = users.id
+      text: `SELECT comments.id,
+            users.username,
+            comments.date,
+            comments.content,
+            comments.is_deleted 
+            FROM comments
+            INNER JOIN users ON comments.owner = users.id
             WHERE comments.thread = $1 ORDER BY date ASC`,
       values: [thread],
     };

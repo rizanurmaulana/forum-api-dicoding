@@ -88,18 +88,18 @@ describe('CommentRepositoryPostgres', () => {
     });
   });
 
-  describe('verifyAvailableCommentInThread function', () => {
+  describe('verifyAvailableComment function', () => {
     it('should throw error when comment not available', async () => {
       // Arrange
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
       const id = 'fakeCommentId';
 
       // Action & Assert
-      await expect(commentRepositoryPostgres.verifyAvailableCommentInThread(id))
+      await expect(commentRepositoryPostgres.verifyAvailableComment(id))
         .rejects.toThrowError(NotFoundError);
     });
 
-    it('should not throw error whwn comment available', async () => {
+    it('should not throw error when comment available', async () => {
       // Arrange
       await UsersTableTestHelper.addUser({
         id: 'user-123',
@@ -125,7 +125,7 @@ describe('CommentRepositoryPostgres', () => {
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 
       // Action & Assert
-      await expect(commentRepositoryPostgres.verifyAvailableCommentInThread('comment-123'));
+      await expect(commentRepositoryPostgres.verifyAvailableComment('comment-123'));
     });
   });
 
@@ -191,7 +191,7 @@ describe('CommentRepositoryPostgres', () => {
     });
   });
 
-  describe('findCommentByThreadId function', () => {
+  describe('getCommentByThreadId function', () => {
     it('should return comment by thread id correctly', async () => {
       // Arrange
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
@@ -221,7 +221,7 @@ describe('CommentRepositoryPostgres', () => {
       });
 
       // Action
-      const comments = await commentRepositoryPostgres.findCommentByThreadId('thread-123');
+      const comments = await commentRepositoryPostgres.getCommentByThreadId('thread-123');
 
       // Assert
       expect(comments).toHaveLength(1);
